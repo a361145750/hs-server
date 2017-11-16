@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>WeUI</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" th:href="@{jqweui/lib/weui.min.css}">
+    <link rel="stylesheet" th:href="@{jqweui/css/jquery-weui.min.css}">
+</head>
+<body ontouchstart>
+<!-- 使用 WeUI -->
+<header class='demos-header'>
+    <h1 class="demos-title">按钮</h1>
+</header>
+<div class="weui-tab">
+    <div class="weui-navbar">
+        <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+            选项一
+        </a>
+        <a class="weui-navbar__item" href="#tab2">
+            选项二
+        </a>
+        <a class="weui-navbar__item" href="#tab3">
+            选项三
+        </a>
+    </div>
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <h1>页面一</h1>
+        </div>
+        <div id="tab2" class="weui-tab__bd-item">
+            <h1>页面二</h1>
+        </div>
+        <div id="tab3" class="weui-tab__bd-item">
+            <h1>页面三</h1>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{jqweui/lib/jquery-2.1.4.js}"></script>
+<script th:src="@{jqweui/lib/zepto.js}"></script>
+<script th:src="@{jqweui/lib/fastclick.js}"></script>
+<script th:src="@{jqweui/js/jquery-weui.min.js}"></script>
+</body>
+</html>

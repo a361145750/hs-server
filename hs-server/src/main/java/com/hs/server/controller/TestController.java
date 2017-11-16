@@ -48,4 +48,16 @@ public class TestController {
 
         return "user";
     }
+
+    @RequestMapping("/upload")
+    public String test1(Model model) {
+
+        return "upload";
+    }
+
+    @RequestMapping("/main")
+    public String main(Model model) {
+
+        return "main";
+    }
 }
