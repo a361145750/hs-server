@@ -276,4 +276,7 @@ $(function () {
     //});
 
     $.init();
+
+    var pathName = document.location.origin;
+    console.log(pathName);
 });
