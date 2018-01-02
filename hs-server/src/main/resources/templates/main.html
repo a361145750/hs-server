@@ -22,6 +22,13 @@
         <div class="pages navbar-fixed toolbar-fixed">
             <!-- Page, "data-page" contains page name -->
             <div data-page="userlist" class="page">
+                <form class="searchbar">
+                    <div class="searchbar-input">
+                        <input type="search" placeholder="请输入卡号/手机号/名称">
+                        <a href="#" class="searchbar-clear"></a>
+                    </div>
+                    <a href="#" class="searchbar-cancel">Cancel</a>
+                </form>
 
                 <!-- Top Navbar. In Material theme it should be inside of the page-->
                 <div class="navbar">
@@ -64,24 +71,31 @@
                 </div>
 
                 <!-- Scrollable page content -->
-                <div class="page-content">
+                <div class="page-content pull-to-refresh-content infinite-scroll">
+                    <div class="pull-to-refresh-layer">
+                        <div class="preloader"></div>
+                        <div class="pull-to-refresh-arrow"></div>
+                    </div>
                     <div class="list-block cards-list">
-                        <ul>
-                            <li class="card">
-                                <div class="card-header">Card Header</div>
-                                <div class="card-content">
-                                    <div class="card-content-inner">Card content</div>
-                                </div>
-                                <div class="card-footer">Card footer</div>
-                            </li>
-                            <li class="card">
-                                <div class="card-header">Card Header</div>
-                                <div class="card-content">
-                                    <div class="card-content-inner">Card content</div>
-                                </div>
-                                <div class="card-footer">Card footer</div>
-                            </li>
+                        <ul id="userresult">
+                            <!--<li class="card">-->
+                                <!--<div class="card-header">Card Header</div>-->
+                                <!--<div class="card-content">-->
+                                    <!--<div class="card-content-inner">Card content</div>-->
+                                <!--</div>-->
+                                <!--<div class="card-footer">Card footer</div>-->
+                            <!--</li>-->
+                            <!--<li class="card">-->
+                                <!--<div class="card-header">Card Header</div>-->
+                                <!--<div class="card-content">-->
+                                    <!--<div class="card-content-inner">Card content</div>-->
+                                <!--</div>-->
+                                <!--<div class="card-footer">Card footer</div>-->
+                            <!--</li>-->
                         </ul>
+                    </div>
+                    <div class="infinite-scroll-preloader">
+                        <div class="preloader"></div>
                     </div>
                 </div>
             </div>
@@ -89,8 +103,20 @@
     </div>
 </div>
 
+<script id="userlist-template" type="text/template">
+    {{#each this}}
+    <li class="card">
+        <div class="card-header">{{userName}}</div>
+        <div class="card-content">
+            <div class="card-content-inner">用户名: {{userName}} <br/>登录ID: {{loginId}}</div>
+        </div>
+        <div class="card-footer">{{userRight}}</div>
+    </li>
+    {{/each}}
+</script>
+
 <!-- 你的html代码 -->
-<script type='text/javascript' th:src="@{framework7/js/framework7.min.js}"></script>
+<script type='text/javascript' th:src="@{framework7/js/framework7.js}"></script>
 <script type='text/javascript' th:src="@{hs/js/main.js}"></script>
 </body>
 </html>

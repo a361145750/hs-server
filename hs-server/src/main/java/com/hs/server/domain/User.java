@@ -15,6 +15,7 @@ public class User extends BaseEntity {
     private String passWord;
     private Long role;
     private Long userRight;
+    private String query;
 
     public Long getUserId() {
         return userId;
@@ -62,5 +63,13 @@ public class User extends BaseEntity {
 
     public void setUserRight(Long userRight) {
         this.userRight = userRight;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 }

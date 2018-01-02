@@ -26,6 +26,7 @@
         <if test="userId != null and userId!=''"> AND user_id = #{userId}</if>
         <if test="userName != null and userName!=''"> AND user_name like concat('%',#{userName},'%')</if>
         <if test="loginId != null and loginId!=''"> AND login_id = #{loginId}</if>
+        <if test="query != null and query!=''"> AND (login_id like concat('%',#{query},'%') or user_name like concat('%',#{query},'%'))</if>
     </select>
 
     <insert id="insert" parameterType="com.hs.server.domain.User" useGeneratedKeys="true" keyProperty="userId">

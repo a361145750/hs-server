@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * description:${todo} <br/>
@@ -46,7 +45,7 @@ public class UserController {
 
     @RequestMapping(value = "/queryUsers", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseDTO<PageDTO<User>> queryUsers(@RequestBody User user, HttpServletRequest request) {
+    public ResponseDTO<PageDTO<User>> queryUsers(@RequestBody User user) {
         try {
             PageHelper.offsetPage(user.getOffset(),user.getPageSize());
             List<User> users = userService.getUsers(user);
