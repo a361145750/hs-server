@@ -1,5 +1,7 @@
 // We need to use custom DOM library, let's save it to $$ variable:
 var pageSize = 3;
+var offset = pageSize;
+var loading = false;
 var $$ = Dom7;
 
 var myApp = new Framework7({
@@ -27,8 +29,6 @@ ptrContent.on('refresh', function (e) {
     }, 1000);
 });
 
-var offset = pageSize;
-var loading = false;
 $$('.infinite-scroll').on('infinite', function () {
     if (loading) return;
     loading = true;
@@ -67,6 +67,7 @@ function queryUsers(param, isAppend){
                         offset = offset + pageSize;
                     }
                 } else {
+                    offset = pageSize;
                     $$('#userresult').html(html);
                 }
             }
