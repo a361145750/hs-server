@@ -6,6 +6,7 @@ var $$ = Dom7;
 
 var myApp = new Framework7({
     precompileTemplates: true,
+    // material: true,
     onPageInit: function (app, page) {
         if (page.name === 'userlist') {
             queryUsers({offset:0, pageSize: pageSize}, false);
