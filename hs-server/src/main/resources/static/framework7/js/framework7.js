@@ -6275,14 +6275,37 @@ return t7;
         
                 }
                 else {
-                    if ((modalHeight + modalAngleSize) < targetOffsetTop) {
+                    // if ((modalHeight + modalAngleSize) < targetOffsetTop) {
+                    //     // On top
+                    //     modalTop = targetOffsetTop - modalHeight - modalAngleSize;
+                    // }
+                    // else if ((modalHeight + modalAngleSize) < app.height - targetOffsetTop - targetHeight) {
+                    //     // On bottom
+                    //     modalPosition = 'bottom';
+                    //     modalTop = targetOffsetTop + targetHeight + modalAngleSize;
+                    // }
+                    // else {
+                    //     // On middle
+                    //     modalPosition = 'middle';
+                    //     modalTop = targetHeight / 2 + targetOffsetTop - modalHeight / 2;
+                    //     diff = modalTop;
+                    //     if (modalTop <= 0) {
+                    //         modalTop = 5;
+                    //     }
+                    //     else if (modalTop + modalHeight >= app.height) {
+                    //         modalTop = app.height - modalHeight - 5;
+                    //     }
+                    //     diff = diff - modalTop;
+                    // }
+                    
+                    if ((modalHeight) < targetOffsetTop) {
                         // On top
-                        modalTop = targetOffsetTop - modalHeight - modalAngleSize;
+                        modalTop = targetOffsetTop - modalHeight;
                     }
-                    else if ((modalHeight + modalAngleSize) < app.height - targetOffsetTop - targetHeight) {
+                    else if ((modalHeight) < app.height - targetOffsetTop - targetHeight) {
                         // On bottom
                         modalPosition = 'bottom';
-                        modalTop = targetOffsetTop + targetHeight + modalAngleSize;
+                        modalTop = targetOffsetTop + targetHeight;
                     }
                     else {
                         // On middle
@@ -6292,8 +6315,8 @@ return t7;
                         if (modalTop <= 0) {
                             modalTop = 5;
                         }
-                        else if (modalTop + modalHeight >= app.height) {
-                            modalTop = app.height - modalHeight - 5;
+                        else if (modalTop  >= app.height) {
+                            modalTop = app.height - 5;
                         }
                         diff = diff - modalTop;
                     }
