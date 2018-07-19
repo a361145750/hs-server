@@ -46,6 +46,10 @@ var mySearchbar = myApp.searchbar('.searchbar', {
     }
 });
 
+function addUser(){
+    // mainView.router.load({pageName:})
+}
+
 function queryUsers(param, isAppend){
     var data = JSON.stringify(param);
     $$.ajax(
