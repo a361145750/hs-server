@@ -1,17 +1,4 @@
-debug: true
-
 spring:
-  profiles:  
-    active: dev  
-  
-  datasource:  
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hs?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root  
-    password: 1Qaz@wsx
-    hikari:  
-      maxLifetime: 1765000
-      maximumPoolSize: 15
 
   thymeleaf:
     cache: false
@@ -20,18 +7,3 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
-
-mybatis:
-  mapperLocations: classpath:mapper/*.xml
-  typeAliasesPackage: com.hs.server.domain
-  configuration:
-    mapUnderscoreToCamelCase: true
-    useColumnLabel: true
-
-logging:
-  level:
-    com.hs: debug
-    com.ibatis: debug
-    java.sql.Statement: debug
-    java.sql.PreparedStatement: debug
-

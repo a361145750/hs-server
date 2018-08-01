@@ -1,10 +1,15 @@
 package com.hs.server.service.impl;
 
-import com.hs.server.dao.UserDAO;
+import com.hs.server.dao.impl.UserMapper;
 import com.hs.server.domain.User;
+import com.hs.server.domain.UserExample;
+import com.hs.server.dto.param.UserParam;
 import com.hs.server.service.UserService;
+import com.hs.server.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -17,28 +22,63 @@ import java.util.List;
  * @since JDK 1.8
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserMapper userMapper;
+
+    @Autowired
+    private SessionUtil sessionUtil;
 
     @Override
-    public List<User> getUsers(User user) {
-        return userDAO.getUsers(user);
+    public List<User> getUsers(UserParam user) {
+        UserExample example = new UserExample();
+        example.setOrderByClause("create_date desc");
+        UserExample.Criteria criteria = example.createCriteria();
+        if(!StringUtils.isEmpty(user.getUserName())){
+            criteria.andUserNameLike("%"+ user.getUserName()+"%");
+        }
+        if(!StringUtils.isEmpty(user.getLoginId())){
+            criteria.andLoginIdEqualTo(user.getLoginId());
+        }
+        if(!StringUtils.isEmpty(user.getRole())){
+            criteria.andRoleEqualTo(user.getRole());
+        }
+        if(!StringUtils.isEmpty(user.getFrom())){
+            criteria.andCreateDateGreaterThanOrEqualTo(user.getFrom());
+        }
+        if(!StringUtils.isEmpty(user.getTo())){
+            criteria.andCreateDateLessThanOrEqualTo(user.getTo());
+        }
+        return userMapper.selectByExample(example);
     }
 
     @Override
     public void addUser(User user) {
-        userDAO.insert(user);
+        sessionUtil.setCurrentUserInfo(user, 0);
+        userMapper.insert(user);
     }
 
     @Override
     public void updateUser(User user) {
-        userDAO.update(user);
+        user.setPassWord(null);
+        user.setLoginId(null);
+        sessionUtil.setCurrentUserInfo(user, 1);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
     public void delUser(Long userId) {
-        userDAO.delete(userId);
+        userMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    public void changePass(User user) {
+        User userNew = new User();
+        userNew.setUserId(user.getUserId());
+        userNew.setPassWord(user.getPassWord());
+        sessionUtil.setCurrentUserInfo(user, 1);
+        userMapper.updateByPrimaryKeySelective(userNew);
     }
 }

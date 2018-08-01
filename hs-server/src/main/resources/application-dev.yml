@@ -1,0 +1,38 @@
+debug: true
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hs?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root  
+    password: 1Qaz@wsx
+    hikari:  
+      maxLifetime: 1765000
+      maximumPoolSize: 15
+
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.hs.server.domain
+  configuration:
+    mapUnderscoreToCamelCase: true
+    useColumnLabel: true
+
+logging:
+  level:
+    com.hs: debug
+    com.ibatis: debug
+    java.sql.Statement: debug
+    java.sql.PreparedStatement: debug
+
+
+file:
+  fileUploadBasePath: D:/GIT
+  fileUploadPath: /fileupload/image
+
+#menu:
+#  adminMenu: [{"menuId":"1","menuName":"码表管理","menuHref":"codeTable","menuIcon":"","parentMenuId":""},{"menuId":"2","menuName":"用户管理","menuHref":"user","menuIcon":"","parentMenuId":""}]
+#  comMenu:  [{"menuId":"3","menuName":"客户管理","menuHref":"custom","menuIcon":"","parentMenuId":""}]
+

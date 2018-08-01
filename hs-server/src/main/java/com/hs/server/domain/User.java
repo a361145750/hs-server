@@ -1,21 +1,17 @@
 package com.hs.server.domain;
 
-/**
- * description:${todo} <br/>
- * Date:     2017/7/9 23:49<br/>
- *
- * @author work_tl
- * @see
- * @since JDK 1.8
- */
-public class User extends BaseEntity {
+public class User extends BaseAuditEntity {
     private Long userId;
-    private String userName;
+
     private String loginId;
+
+    private String userName;
+
     private String passWord;
+
     private Long role;
+
     private Long userRight;
-    private String query;
 
     public Long getUserId() {
         return userId;
@@ -25,20 +21,20 @@ public class User extends BaseEntity {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getLoginId() {
         return loginId;
     }
 
     public void setLoginId(String loginId) {
-        this.loginId = loginId;
+        this.loginId = loginId == null ? null : loginId.trim();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getPassWord() {
@@ -46,7 +42,7 @@ public class User extends BaseEntity {
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord;
+        this.passWord = passWord == null ? null : passWord.trim();
     }
 
     public Long getRole() {
@@ -65,11 +61,4 @@ public class User extends BaseEntity {
         this.userRight = userRight;
     }
 
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
 }

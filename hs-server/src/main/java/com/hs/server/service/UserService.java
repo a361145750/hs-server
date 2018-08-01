@@ -1,6 +1,7 @@
 package com.hs.server.service;
 
 import com.hs.server.domain.User;
+import com.hs.server.dto.param.UserParam;
 
 import java.util.List;
 
@@ -13,8 +14,10 @@ import java.util.List;
  * @since JDK 1.8
  */
 public interface UserService {
-    List<User> getUsers(User user);
+    List<User> getUsers(UserParam user);
     void addUser(User user);
     void updateUser(User user);
     void delUser(Long userId);
+
+    void changePass(User user);
 }
