@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hs.server.dao.impl.CustomMapper" >
+  <resultMap id="BaseResultMap" type="com.hs.server.domain.Custom" >
+    <id column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_NAME_EN" property="userNameEn" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="ADRESS" property="adress" jdbcType="VARCHAR" />
+    <result column="PREFER" property="prefer" jdbcType="VARCHAR" />
+    <result column="LEVEL" property="level" jdbcType="VARCHAR" />
+    <result column="JOB" property="job" jdbcType="VARCHAR" />
+    <result column="WEIXIN" property="weixin" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+    <result column="CUSTOM_CHARACTER" property="customCharacter" jdbcType="VARCHAR" />
+    <result column="HAIR_NUMBER" property="hairNumber" jdbcType="VARCHAR" />
+    <result column="HAIR_LENGTH" property="hairLength" jdbcType="VARCHAR" />
+    <result column="HAIR_QUALITY" property="hairQuality" jdbcType="VARCHAR" />
+    <result column="HAIR_OPRATE_TYPE" property="hairOprateType" jdbcType="VARCHAR" />
+    <result column="HAIR_PREFER" property="hairPrefer" jdbcType="VARCHAR" />
+    <result column="HAIR_EXCLUDE" property="hairExclude" jdbcType="VARCHAR" />
+    <result column="HAIR_FREQUENCY" property="hairFrequency" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUSTOM_ID, CARD_ID, USER_NAME, USER_NAME_EN, SEX, AGE, PHONE, ADRESS, PREFER, LEVEL, 
+    JOB, WEIXIN, BIRTHDAY, CUSTOM_CHARACTER, HAIR_NUMBER, HAIR_LENGTH, HAIR_QUALITY, 
+    HAIR_OPRATE_TYPE, HAIR_PREFER, HAIR_EXCLUDE, HAIR_FREQUENCY, COMMENT, CREATE_BY, 
+    CREATE_DATE, UPDATE_BY, UPDATE_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hs.server.domain.CustomExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from custom
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from custom
+    where CUSTOM_ID = #{customId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from custom
+    where CUSTOM_ID = #{customId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hs.server.domain.Custom" >
+    insert into custom (CUSTOM_ID, CARD_ID, USER_NAME, 
+      USER_NAME_EN, SEX, AGE, 
+      PHONE, ADRESS, PREFER, 
+      LEVEL, JOB, WEIXIN, 
+      BIRTHDAY, CUSTOM_CHARACTER, HAIR_NUMBER, 
+      HAIR_LENGTH, HAIR_QUALITY, HAIR_OPRATE_TYPE, 
+      HAIR_PREFER, HAIR_EXCLUDE, HAIR_FREQUENCY, 
+      COMMENT, CREATE_BY, CREATE_DATE, 
+      UPDATE_BY, UPDATE_DATE)
+    values (#{customId,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userNameEn,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, #{prefer,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{customCharacter,jdbcType=VARCHAR}, #{hairNumber,jdbcType=VARCHAR}, 
+      #{hairLength,jdbcType=VARCHAR}, #{hairQuality,jdbcType=VARCHAR}, #{hairOprateType,jdbcType=VARCHAR}, 
+      #{hairPrefer,jdbcType=VARCHAR}, #{hairExclude,jdbcType=VARCHAR}, #{hairFrequency,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hs.server.domain.Custom" >
+    insert into custom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userNameEn != null" >
+        USER_NAME_EN,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="adress != null" >
+        ADRESS,
+      </if>
+      <if test="prefer != null" >
+        PREFER,
+      </if>
+      <if test="level != null" >
+        LEVEL,
+      </if>
+      <if test="job != null" >
+        JOB,
+      </if>
+      <if test="weixin != null" >
+        WEIXIN,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="customCharacter != null" >
+        CUSTOM_CHARACTER,
+      </if>
+      <if test="hairNumber != null" >
+        HAIR_NUMBER,
+      </if>
+      <if test="hairLength != null" >
+        HAIR_LENGTH,
+      </if>
+      <if test="hairQuality != null" >
+        HAIR_QUALITY,
+      </if>
+      <if test="hairOprateType != null" >
+        HAIR_OPRATE_TYPE,
+      </if>
+      <if test="hairPrefer != null" >
+        HAIR_PREFER,
+      </if>
+      <if test="hairExclude != null" >
+        HAIR_EXCLUDE,
+      </if>
+      <if test="hairFrequency != null" >
+        HAIR_FREQUENCY,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customId != null" >
+        #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameEn != null" >
+        #{userNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="prefer != null" >
+        #{prefer,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="customCharacter != null" >
+        #{customCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="hairNumber != null" >
+        #{hairNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLength != null" >
+        #{hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="hairQuality != null" >
+        #{hairQuality,jdbcType=VARCHAR},
+      </if>
+      <if test="hairOprateType != null" >
+        #{hairOprateType,jdbcType=VARCHAR},
+      </if>
+      <if test="hairPrefer != null" >
+        #{hairPrefer,jdbcType=VARCHAR},
+      </if>
+      <if test="hairExclude != null" >
+        #{hairExclude,jdbcType=VARCHAR},
+      </if>
+      <if test="hairFrequency != null" >
+        #{hairFrequency,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update custom
+    <set >
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        CARD_ID = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNameEn != null" >
+        USER_NAME_EN = #{record.userNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        AGE = #{record.age,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adress != null" >
+        ADRESS = #{record.adress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prefer != null" >
+        PREFER = #{record.prefer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        LEVEL = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null" >
+        JOB = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        WEIXIN = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customCharacter != null" >
+        CUSTOM_CHARACTER = #{record.customCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairNumber != null" >
+        HAIR_NUMBER = #{record.hairNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairLength != null" >
+        HAIR_LENGTH = #{record.hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairQuality != null" >
+        HAIR_QUALITY = #{record.hairQuality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairOprateType != null" >
+        HAIR_OPRATE_TYPE = #{record.hairOprateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairPrefer != null" >
+        HAIR_PREFER = #{record.hairPrefer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairExclude != null" >
+        HAIR_EXCLUDE = #{record.hairExclude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairFrequency != null" >
+        HAIR_FREQUENCY = #{record.hairFrequency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        COMMENT = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null" >
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update custom
+    set CUSTOM_ID = #{record.customId,jdbcType=VARCHAR},
+      CARD_ID = #{record.cardId,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      USER_NAME_EN = #{record.userNameEn,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=VARCHAR},
+      AGE = #{record.age,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      ADRESS = #{record.adress,jdbcType=VARCHAR},
+      PREFER = #{record.prefer,jdbcType=VARCHAR},
+      LEVEL = #{record.level,jdbcType=VARCHAR},
+      JOB = #{record.job,jdbcType=VARCHAR},
+      WEIXIN = #{record.weixin,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      CUSTOM_CHARACTER = #{record.customCharacter,jdbcType=VARCHAR},
+      HAIR_NUMBER = #{record.hairNumber,jdbcType=VARCHAR},
+      HAIR_LENGTH = #{record.hairLength,jdbcType=VARCHAR},
+      HAIR_QUALITY = #{record.hairQuality,jdbcType=VARCHAR},
+      HAIR_OPRATE_TYPE = #{record.hairOprateType,jdbcType=VARCHAR},
+      HAIR_PREFER = #{record.hairPrefer,jdbcType=VARCHAR},
+      HAIR_EXCLUDE = #{record.hairExclude,jdbcType=VARCHAR},
+      HAIR_FREQUENCY = #{record.hairFrequency,jdbcType=VARCHAR},
+      COMMENT = #{record.comment,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hs.server.domain.Custom" >
+    update custom
+    <set >
+      <if test="cardId != null" >
+        CARD_ID = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameEn != null" >
+        USER_NAME_EN = #{userNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        AGE = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        ADRESS = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="prefer != null" >
+        PREFER = #{prefer,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        LEVEL = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        JOB = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        WEIXIN = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="customCharacter != null" >
+        CUSTOM_CHARACTER = #{customCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="hairNumber != null" >
+        HAIR_NUMBER = #{hairNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLength != null" >
+        HAIR_LENGTH = #{hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="hairQuality != null" >
+        HAIR_QUALITY = #{hairQuality,jdbcType=VARCHAR},
+      </if>
+      <if test="hairOprateType != null" >
+        HAIR_OPRATE_TYPE = #{hairOprateType,jdbcType=VARCHAR},
+      </if>
+      <if test="hairPrefer != null" >
+        HAIR_PREFER = #{hairPrefer,jdbcType=VARCHAR},
+      </if>
+      <if test="hairExclude != null" >
+        HAIR_EXCLUDE = #{hairExclude,jdbcType=VARCHAR},
+      </if>
+      <if test="hairFrequency != null" >
+        HAIR_FREQUENCY = #{hairFrequency,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CUSTOM_ID = #{customId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hs.server.domain.Custom" >
+    update custom
+    set CARD_ID = #{cardId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_NAME_EN = #{userNameEn,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      ADRESS = #{adress,jdbcType=VARCHAR},
+      PREFER = #{prefer,jdbcType=VARCHAR},
+      LEVEL = #{level,jdbcType=VARCHAR},
+      JOB = #{job,jdbcType=VARCHAR},
+      WEIXIN = #{weixin,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      CUSTOM_CHARACTER = #{customCharacter,jdbcType=VARCHAR},
+      HAIR_NUMBER = #{hairNumber,jdbcType=VARCHAR},
+      HAIR_LENGTH = #{hairLength,jdbcType=VARCHAR},
+      HAIR_QUALITY = #{hairQuality,jdbcType=VARCHAR},
+      HAIR_OPRATE_TYPE = #{hairOprateType,jdbcType=VARCHAR},
+      HAIR_PREFER = #{hairPrefer,jdbcType=VARCHAR},
+      HAIR_EXCLUDE = #{hairExclude,jdbcType=VARCHAR},
+      HAIR_FREQUENCY = #{hairFrequency,jdbcType=VARCHAR},
+      COMMENT = #{comment,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where CUSTOM_ID = #{customId,jdbcType=VARCHAR}
+  </update>
+</mapper>

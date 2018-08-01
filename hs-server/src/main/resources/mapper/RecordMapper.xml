@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hs.server.dao.impl.RecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hs.server.domain.Record" >
+    <id column="RECORD_ID" property="recordId" jdbcType="VARCHAR" />
+    <result column="OPRATE_DATE" property="oprateDate" jdbcType="DATE" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="DISINER_ID" property="disinerId" jdbcType="VARCHAR" />
+    <result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+    <result column="TOTAL_FEE" property="totalFee" jdbcType="VARCHAR" />
+    <result column="DISIN_TYPE" property="disinType" jdbcType="VARCHAR" />
+    <result column="HAIR_LEVEL" property="hairLevel" jdbcType="VARCHAR" />
+    <result column="HAIR_LENGTH" property="hairLength" jdbcType="VARCHAR" />
+    <result column="HAIR_BAR" property="hairBar" jdbcType="VARCHAR" />
+    <result column="HAIR_PERM_BRAND" property="hairPermBrand" jdbcType="VARCHAR" />
+    <result column="HAIR_DYE_BRAND" property="hairDyeBrand" jdbcType="VARCHAR" />
+    <result column="HAIR_CAIR_BRAND" property="hairCairBrand" jdbcType="VARCHAR" />
+    <result column="HAIR_HATE_ITEMS" property="hairHateItems" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REQUIRE_ITEMS" property="customRequireItems" jdbcType="VARCHAR" />
+    <result column="OPRATE_NOTICE_ITEMS" property="oprateNoticeItems" jdbcType="VARCHAR" />
+    <result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RECORD_ID, OPRATE_DATE, DESCRIPTION, DISINER_ID, CUSTOM_ID, TOTAL_FEE, DISIN_TYPE, 
+    HAIR_LEVEL, HAIR_LENGTH, HAIR_BAR, HAIR_PERM_BRAND, HAIR_DYE_BRAND, HAIR_CAIR_BRAND, 
+    HAIR_HATE_ITEMS, CUSTOM_REQUIRE_ITEMS, OPRATE_NOTICE_ITEMS, IMG_URL, CREATE_BY, CREATE_DATE, 
+    UPDATE_BY, UPDATE_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hs.server.domain.RecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where RECORD_ID = #{recordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from record
+    where RECORD_ID = #{recordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hs.server.domain.Record" >
+    insert into record (RECORD_ID, OPRATE_DATE, DESCRIPTION, 
+      DISINER_ID, CUSTOM_ID, TOTAL_FEE, 
+      DISIN_TYPE, HAIR_LEVEL, HAIR_LENGTH, 
+      HAIR_BAR, HAIR_PERM_BRAND, HAIR_DYE_BRAND, 
+      HAIR_CAIR_BRAND, HAIR_HATE_ITEMS, CUSTOM_REQUIRE_ITEMS, 
+      OPRATE_NOTICE_ITEMS, IMG_URL, CREATE_BY, 
+      CREATE_DATE, UPDATE_BY, UPDATE_DATE
+      )
+    values (#{recordId,jdbcType=VARCHAR}, #{oprateDate,jdbcType=DATE}, #{description,jdbcType=VARCHAR}, 
+      #{disinerId,jdbcType=VARCHAR}, #{customId,jdbcType=VARCHAR}, #{totalFee,jdbcType=VARCHAR}, 
+      #{disinType,jdbcType=VARCHAR}, #{hairLevel,jdbcType=VARCHAR}, #{hairLength,jdbcType=VARCHAR}, 
+      #{hairBar,jdbcType=VARCHAR}, #{hairPermBrand,jdbcType=VARCHAR}, #{hairDyeBrand,jdbcType=VARCHAR}, 
+      #{hairCairBrand,jdbcType=VARCHAR}, #{hairHateItems,jdbcType=VARCHAR}, #{customRequireItems,jdbcType=VARCHAR}, 
+      #{oprateNoticeItems,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hs.server.domain.Record" >
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        RECORD_ID,
+      </if>
+      <if test="oprateDate != null" >
+        OPRATE_DATE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="disinerId != null" >
+        DISINER_ID,
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="totalFee != null" >
+        TOTAL_FEE,
+      </if>
+      <if test="disinType != null" >
+        DISIN_TYPE,
+      </if>
+      <if test="hairLevel != null" >
+        HAIR_LEVEL,
+      </if>
+      <if test="hairLength != null" >
+        HAIR_LENGTH,
+      </if>
+      <if test="hairBar != null" >
+        HAIR_BAR,
+      </if>
+      <if test="hairPermBrand != null" >
+        HAIR_PERM_BRAND,
+      </if>
+      <if test="hairDyeBrand != null" >
+        HAIR_DYE_BRAND,
+      </if>
+      <if test="hairCairBrand != null" >
+        HAIR_CAIR_BRAND,
+      </if>
+      <if test="hairHateItems != null" >
+        HAIR_HATE_ITEMS,
+      </if>
+      <if test="customRequireItems != null" >
+        CUSTOM_REQUIRE_ITEMS,
+      </if>
+      <if test="oprateNoticeItems != null" >
+        OPRATE_NOTICE_ITEMS,
+      </if>
+      <if test="imgUrl != null" >
+        IMG_URL,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="oprateDate != null" >
+        #{oprateDate,jdbcType=DATE},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="disinerId != null" >
+        #{disinerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="disinType != null" >
+        #{disinType,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLevel != null" >
+        #{hairLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLength != null" >
+        #{hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="hairBar != null" >
+        #{hairBar,jdbcType=VARCHAR},
+      </if>
+      <if test="hairPermBrand != null" >
+        #{hairPermBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairDyeBrand != null" >
+        #{hairDyeBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairCairBrand != null" >
+        #{hairCairBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairHateItems != null" >
+        #{hairHateItems,jdbcType=VARCHAR},
+      </if>
+      <if test="customRequireItems != null" >
+        #{customRequireItems,jdbcType=VARCHAR},
+      </if>
+      <if test="oprateNoticeItems != null" >
+        #{oprateNoticeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update record
+    <set >
+      <if test="record.recordId != null" >
+        RECORD_ID = #{record.recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oprateDate != null" >
+        OPRATE_DATE = #{record.oprateDate,jdbcType=DATE},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disinerId != null" >
+        DISINER_ID = #{record.disinerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalFee != null" >
+        TOTAL_FEE = #{record.totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disinType != null" >
+        DISIN_TYPE = #{record.disinType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairLevel != null" >
+        HAIR_LEVEL = #{record.hairLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairLength != null" >
+        HAIR_LENGTH = #{record.hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairBar != null" >
+        HAIR_BAR = #{record.hairBar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairPermBrand != null" >
+        HAIR_PERM_BRAND = #{record.hairPermBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairDyeBrand != null" >
+        HAIR_DYE_BRAND = #{record.hairDyeBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairCairBrand != null" >
+        HAIR_CAIR_BRAND = #{record.hairCairBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hairHateItems != null" >
+        HAIR_HATE_ITEMS = #{record.hairHateItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customRequireItems != null" >
+        CUSTOM_REQUIRE_ITEMS = #{record.customRequireItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oprateNoticeItems != null" >
+        OPRATE_NOTICE_ITEMS = #{record.oprateNoticeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgUrl != null" >
+        IMG_URL = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null" >
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update record
+    set RECORD_ID = #{record.recordId,jdbcType=VARCHAR},
+      OPRATE_DATE = #{record.oprateDate,jdbcType=DATE},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      DISINER_ID = #{record.disinerId,jdbcType=VARCHAR},
+      CUSTOM_ID = #{record.customId,jdbcType=VARCHAR},
+      TOTAL_FEE = #{record.totalFee,jdbcType=VARCHAR},
+      DISIN_TYPE = #{record.disinType,jdbcType=VARCHAR},
+      HAIR_LEVEL = #{record.hairLevel,jdbcType=VARCHAR},
+      HAIR_LENGTH = #{record.hairLength,jdbcType=VARCHAR},
+      HAIR_BAR = #{record.hairBar,jdbcType=VARCHAR},
+      HAIR_PERM_BRAND = #{record.hairPermBrand,jdbcType=VARCHAR},
+      HAIR_DYE_BRAND = #{record.hairDyeBrand,jdbcType=VARCHAR},
+      HAIR_CAIR_BRAND = #{record.hairCairBrand,jdbcType=VARCHAR},
+      HAIR_HATE_ITEMS = #{record.hairHateItems,jdbcType=VARCHAR},
+      CUSTOM_REQUIRE_ITEMS = #{record.customRequireItems,jdbcType=VARCHAR},
+      OPRATE_NOTICE_ITEMS = #{record.oprateNoticeItems,jdbcType=VARCHAR},
+      IMG_URL = #{record.imgUrl,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hs.server.domain.Record" >
+    update record
+    <set >
+      <if test="oprateDate != null" >
+        OPRATE_DATE = #{oprateDate,jdbcType=DATE},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="disinerId != null" >
+        DISINER_ID = #{disinerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID = #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        TOTAL_FEE = #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="disinType != null" >
+        DISIN_TYPE = #{disinType,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLevel != null" >
+        HAIR_LEVEL = #{hairLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="hairLength != null" >
+        HAIR_LENGTH = #{hairLength,jdbcType=VARCHAR},
+      </if>
+      <if test="hairBar != null" >
+        HAIR_BAR = #{hairBar,jdbcType=VARCHAR},
+      </if>
+      <if test="hairPermBrand != null" >
+        HAIR_PERM_BRAND = #{hairPermBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairDyeBrand != null" >
+        HAIR_DYE_BRAND = #{hairDyeBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairCairBrand != null" >
+        HAIR_CAIR_BRAND = #{hairCairBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="hairHateItems != null" >
+        HAIR_HATE_ITEMS = #{hairHateItems,jdbcType=VARCHAR},
+      </if>
+      <if test="customRequireItems != null" >
+        CUSTOM_REQUIRE_ITEMS = #{customRequireItems,jdbcType=VARCHAR},
+      </if>
+      <if test="oprateNoticeItems != null" >
+        OPRATE_NOTICE_ITEMS = #{oprateNoticeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RECORD_ID = #{recordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hs.server.domain.Record" >
+    update record
+    set OPRATE_DATE = #{oprateDate,jdbcType=DATE},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      DISINER_ID = #{disinerId,jdbcType=VARCHAR},
+      CUSTOM_ID = #{customId,jdbcType=VARCHAR},
+      TOTAL_FEE = #{totalFee,jdbcType=VARCHAR},
+      DISIN_TYPE = #{disinType,jdbcType=VARCHAR},
+      HAIR_LEVEL = #{hairLevel,jdbcType=VARCHAR},
+      HAIR_LENGTH = #{hairLength,jdbcType=VARCHAR},
+      HAIR_BAR = #{hairBar,jdbcType=VARCHAR},
+      HAIR_PERM_BRAND = #{hairPermBrand,jdbcType=VARCHAR},
+      HAIR_DYE_BRAND = #{hairDyeBrand,jdbcType=VARCHAR},
+      HAIR_CAIR_BRAND = #{hairCairBrand,jdbcType=VARCHAR},
+      HAIR_HATE_ITEMS = #{hairHateItems,jdbcType=VARCHAR},
+      CUSTOM_REQUIRE_ITEMS = #{customRequireItems,jdbcType=VARCHAR},
+      OPRATE_NOTICE_ITEMS = #{oprateNoticeItems,jdbcType=VARCHAR},
+      IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where RECORD_ID = #{recordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

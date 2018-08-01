@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hs.server.dao.impl.ConfAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.hs.server.domain.ConfAttr" >
+    <id column="CONF_ID" property="confId" jdbcType="VARCHAR" />
+    <result column="CONF_CODE" property="confCode" jdbcType="VARCHAR" />
+    <result column="CONF_NAME" property="confName" jdbcType="VARCHAR" />
+    <result column="CONF_TYPE" property="confType" jdbcType="VARCHAR" />
+    <result column="CONF_ORDER" property="confOrder" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONF_ID, CONF_CODE, CONF_NAME, CONF_TYPE, CONF_ORDER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from conf_attr
+    where CONF_ID = #{confId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from conf_attr
+    where CONF_ID = #{confId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hs.server.domain.ConfAttrExample" >
+    delete from conf_attr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hs.server.domain.ConfAttr" >
+    insert into conf_attr (CONF_ID, CONF_CODE, CONF_NAME, 
+      CONF_TYPE, CONF_ORDER)
+    values (#{confId,jdbcType=VARCHAR}, #{confCode,jdbcType=VARCHAR}, #{confName,jdbcType=VARCHAR}, 
+      #{confType,jdbcType=VARCHAR}, #{confOrder,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hs.server.domain.ConfAttr" >
+    insert into conf_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="confId != null" >
+        CONF_ID,
+      </if>
+      <if test="confCode != null" >
+        CONF_CODE,
+      </if>
+      <if test="confName != null" >
+        CONF_NAME,
+      </if>
+      <if test="confType != null" >
+        CONF_TYPE,
+      </if>
+      <if test="confOrder != null" >
+        CONF_ORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="confId != null" >
+        #{confId,jdbcType=VARCHAR},
+      </if>
+      <if test="confCode != null" >
+        #{confCode,jdbcType=VARCHAR},
+      </if>
+      <if test="confName != null" >
+        #{confName,jdbcType=VARCHAR},
+      </if>
+      <if test="confType != null" >
+        #{confType,jdbcType=VARCHAR},
+      </if>
+      <if test="confOrder != null" >
+        #{confOrder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update conf_attr
+    <set >
+      <if test="record.confId != null" >
+        CONF_ID = #{record.confId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confCode != null" >
+        CONF_CODE = #{record.confCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confName != null" >
+        CONF_NAME = #{record.confName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confType != null" >
+        CONF_TYPE = #{record.confType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confOrder != null" >
+        CONF_ORDER = #{record.confOrder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update conf_attr
+    set CONF_ID = #{record.confId,jdbcType=VARCHAR},
+      CONF_CODE = #{record.confCode,jdbcType=VARCHAR},
+      CONF_NAME = #{record.confName,jdbcType=VARCHAR},
+      CONF_TYPE = #{record.confType,jdbcType=VARCHAR},
+      CONF_ORDER = #{record.confOrder,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hs.server.domain.ConfAttr" >
+    update conf_attr
+    <set >
+      <if test="confCode != null" >
+        CONF_CODE = #{confCode,jdbcType=VARCHAR},
+      </if>
+      <if test="confName != null" >
+        CONF_NAME = #{confName,jdbcType=VARCHAR},
+      </if>
+      <if test="confType != null" >
+        CONF_TYPE = #{confType,jdbcType=VARCHAR},
+      </if>
+      <if test="confOrder != null" >
+        CONF_ORDER = #{confOrder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CONF_ID = #{confId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hs.server.domain.ConfAttr" >
+    update conf_attr
+    set CONF_CODE = #{confCode,jdbcType=VARCHAR},
+      CONF_NAME = #{confName,jdbcType=VARCHAR},
+      CONF_TYPE = #{confType,jdbcType=VARCHAR},
+      CONF_ORDER = #{confOrder,jdbcType=VARCHAR}
+    where CONF_ID = #{confId,jdbcType=VARCHAR}
+  </update>
+</mapper>
