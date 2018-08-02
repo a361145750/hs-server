@@ -8,6 +8,7 @@
 	<script src="https://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 	<link href="https://cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="/plugins/layui/css/layui.css" media="all"/>
+	<!--<link rel="stylesheet" type="text/css" href="/plugins/layui/css/layui.mobile.css" media="all"/>-->
 	<link rel="stylesheet" type="text/css" href="/css/fs.css" media="all"/>
 	<script type="text/javascript" src="/plugins/layui/layui.js"></script>
 	<script type="text/javascript" src="/plugins/jquery/jquery.min.js"></script>
@@ -86,7 +87,7 @@
 		<div class="layui-col-md12">
 			<div class="layui-row grid-demo">
 				<div class="layui-col-md12">
-					<button class="layui-btn" function="top" topUrl="rout/addUser" topMode="add" topWidth="800px" topHeight="580px" topTitle="新增">
+					<button class="layui-btn" function="top" topUrl="rout/userDetail?mode=add" topMode="add" topWidth="600px" topHeight="400px" topTitle="新增">
 						<i class="layui-icon">&#xe654;</i>新增
 					</button>
 					<button class="layui-btn" function="refresh">
@@ -101,8 +102,8 @@
 						<p checkbox="true"/>
 						<p field="loginId" title="登录ID" width="10%" sort="true"/>
 						<p field="userName" title="用户名" width="20%" sort="true"/>
-						<p field="role" title="角色" width="100" width="15%" templet="#roleTpl"/>
-						<p field="createDate" title="创建时间" width="25%" />
+						<p field="role" title="角色"  width="10%" templet="#roleTpl"/>
+						<p field="createDate" title="创建时间" width="30%" />
 						<p fixed="right" align="center" toolbar="#barDemo" title="操作" width="30%"/>
 
 
@@ -117,9 +118,9 @@
 					</script>
 
 					<script type="text/html" id="barDemo">
-						<a class="layui-btn layui-btn-xs" lay-event="top" topUrl="rout/userDetail" topMode="readonly" topWidth="800px" topHeight="580px" isMaxWindow="" topTitle="查看" inputs="userId:">查看</a>
-						<a class="layui-btn layui-btn-xs" lay-event="top" topUrl="rout/userDetail" topMode="edit" topWidth="800px" topHeight="580px" isMaxWindow="" topTitle="编辑" inputs="userId:">编辑</a>
-						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="/api/user/delUser"  isConfirm="1" confirmMsg="是否确定删除当前记录？"  topTitle="删除" inputs="userId:">删除</a>
+						<a class="layui-btn layui-btn-sm" lay-event="top" topUrl="rout/userDetail?mode=readonly" topMode="readonly" topWidth="600px" topHeight="400px" isMaxWindow="" topTitle="查看" inputs="userId:">查看</a>
+						<a class="layui-btn layui-btn-sm" lay-event="top" topUrl="rout/userDetail?mode=edit" topMode="edit" topWidth="600px" topHeight="400px" isMaxWindow="" topTitle="编辑" inputs="userId:">编辑</a>
+						<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="submit" url="/api/user/delUser"  isConfirm="1" confirmMsg="是否确定删除当前记录？"  topTitle="删除" inputs="userId:">删除</a>
 					</script>
 				</div>
 			</div>

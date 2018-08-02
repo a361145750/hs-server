@@ -378,7 +378,7 @@ layui.define(["fsCommon","table",'laypage','fsConfig','form','fsButtonCommon'], 
             }
 
             //请求数据
-            fsCommon.invoke(url,param,function(data)
+            fsCommon.invokeWithContentType(url,param,function(data)
             {
               if(data[statusName] == successNo)
               {
@@ -393,7 +393,7 @@ layui.define(["fsCommon","table",'laypage','fsConfig','form','fsButtonCommon'], 
                 //提示错误消息
               	fsCommon.errorMsg(data[msgName]);
               }
-            },null,_method);
+            },null,_method,"application/json; charset=utf-8");
         	}
 
 

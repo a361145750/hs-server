@@ -639,11 +639,19 @@ layui.define(['layer',"fsCommon","form",'laydate',"fsConfig",'layedit'], functio
 	  	param[$(this).attr("name")] = tinymce.editors[i].getBody().innerHTML;
 	  });
 
-  	fsCommon.invoke(url,param,function(data)
+
+	//获取参数
+	var contentType = _this.attr("contentType");
+	if($.isEmpty(contentType)){
+		contentType = "application/json; charset=utf-8";
+	}
+
+
+  	fsCommon.invokeWithContentType(url,param,function(data)
 		{
     	if(data[statusName] == successNo)
     	{
-    		fsCommon.successMsg('操作成功!');
+    		fsCommon.successMsg(data[msgName]);
     		fsCommon.setRefreshTable("1");
 
     		//是否自动关闭，默认是
@@ -652,7 +660,7 @@ layui.define(['layer',"fsCommon","form",'laydate',"fsConfig",'layedit'], functio
     		}
 
             //是否自动跳转，默认是
-            if(_this.attr("targetUrl") != ""){
+            if(_this.attr("targetUrl") != null && _this.attr("targetUrl") != ""){
                 //跳转目标页
                 top.window.location.href = fsConfig["global"]["servletUrl"] + _this.attr("targetUrl");
             }
@@ -662,7 +670,7 @@ layui.define(['layer',"fsCommon","form",'laydate',"fsConfig",'layedit'], functio
     		//提示错误消息
     		fsCommon.errorMsg(data[msgName]);
     	}
-		},false);
+		},false,null,contentType);
   };
 
   var fsForm = new FsForm();

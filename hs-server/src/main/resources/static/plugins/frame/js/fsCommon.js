@@ -623,7 +623,7 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 						{
 							//多结果集,分割
 							var newValue = "";
-							if(!$.isEmpty(data) && data.length >1){
+							if(!$.isEmpty(data) && data instanceof Array && data.length >1){
 								//如果多选，获取多选数据
 								$(data).each(function(index,dom)
 								{
@@ -637,9 +637,11 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 									}
 									newValue += __value;
 								});
-							} else if (data.length ==1){
+							} else if (data instanceof Array && data.length ==1){
                                 newValue = data[0][paramArr[0]];
-							}
+							} else {
+                                newValue = data[paramArr[0]];
+                            }
 
 				    		_vaule = newValue;
 						}else if($.startsWith(_vaule,"$")){
