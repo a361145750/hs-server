@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,10 +59,18 @@ public class RecordServiceImpl implements RecordService {
             criteria.andDisinTypeLike("%"+ record.getDisinType()+"%");
         }
         if(!StringUtils.isEmpty(record.getFrom())){
-            criteria.andCreateDateGreaterThanOrEqualTo(record.getFrom());
+            Date from = record.getFrom();
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+            criteria.andCreateDateGreaterThanOrEqualTo(from);
         }
         if(!StringUtils.isEmpty(record.getTo())){
-            criteria.andCreateDateLessThanOrEqualTo(record.getTo());
+            Date to = record.getTo();
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+            criteria.andCreateDateLessThanOrEqualTo(to);
         }
         return recordMapper.selectByExample(example);
     }

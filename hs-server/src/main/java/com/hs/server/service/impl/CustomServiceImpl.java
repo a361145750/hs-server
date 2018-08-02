@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,10 +56,18 @@ public class CustomServiceImpl implements CustomService {
             criteria.andBirthdayLessThanOrEqualTo(custom.getBirthTo());
         }
         if(!StringUtils.isEmpty(custom.getFrom())){
-            criteria.andCreateDateGreaterThanOrEqualTo(custom.getFrom());
+            Date from = custom.getFrom();
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+            criteria.andCreateDateGreaterThanOrEqualTo(from);
         }
         if(!StringUtils.isEmpty(custom.getTo())){
-            criteria.andCreateDateLessThanOrEqualTo(custom.getTo());
+            Date to = custom.getTo();
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+            criteria.andCreateDateLessThanOrEqualTo(to);
         }
         return customMapper.selectByExample(example);
     }

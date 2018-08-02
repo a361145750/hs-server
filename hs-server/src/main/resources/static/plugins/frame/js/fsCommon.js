@@ -61,6 +61,9 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
           if($.isEmpty(method)){
               method = "post";
           }
+          if(contentType == "application/json; charset=utf-8"){
+              param = JSON.stringify(param);
+		  }
           //打开加载层
           var index = layer.load();
           $.ajax({
@@ -294,8 +297,16 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 			    		var param2 = fsCommon.getParamByInputs(inputs,data);
 			    		$.extend(param,param2);
 		    		}
+
+
+                    //获取参数
+                    var contentType = _this.attr("contentType");
+		    		if($.isEmpty(contentType)){
+                        contentType = "application/json; charset=utf-8";
+					}
+
     				//请求数据
-		    		fsCommon.invoke(url,param,function(data)
+		    		fsCommon.invokeWithContentType(url,param,function(data)
 						{
 		        	if(data[statusName] == successNo)
 		        	{
@@ -315,7 +326,7 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 		        		//提示错误消息
 		        		fsCommon.errorMsg(data[msgName]);
 		        	}
-						},null,_method);
+						},null,_method,contentType);
 	    		}
 
 	    		if("1" == _this.attr("isConfirm"))
@@ -612,7 +623,7 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 						{
 							//多结果集,分割
 							var newValue = "";
-							if(!$.isEmpty(data)){
+							if(!$.isEmpty(data) && data.length >1){
 								//如果多选，获取多选数据
 								$(data).each(function(index,dom)
 								{
@@ -626,6 +637,8 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 									}
 									newValue += __value;
 								});
+							} else if (data.length ==1){
+                                newValue = data[0][paramArr[0]];
 							}
 
 				    		_vaule = newValue;
@@ -642,9 +655,9 @@ layui.define(['layer','form','fsConfig','fsButtonCommon'], function (exports) {
 		                newValue += ",";
 		              }
 		              var __value = dom[xxxx];
-									if($.isEmpty(__value)){
-										__value="";
-									}
+						if($.isEmpty(__value)){
+							__value="";
+						}
 		              newValue += __value;
 		            });
 	            }

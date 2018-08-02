@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,10 +47,18 @@ public class UserServiceImpl implements UserService {
             criteria.andRoleEqualTo(user.getRole());
         }
         if(!StringUtils.isEmpty(user.getFrom())){
-            criteria.andCreateDateGreaterThanOrEqualTo(user.getFrom());
+            Date from = user.getFrom();
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+            criteria.andCreateDateGreaterThanOrEqualTo(from);
         }
         if(!StringUtils.isEmpty(user.getTo())){
-            criteria.andCreateDateLessThanOrEqualTo(user.getTo());
+            Date to = user.getTo();
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+            criteria.andCreateDateLessThanOrEqualTo(to);
         }
         return userMapper.selectByExample(example);
     }
